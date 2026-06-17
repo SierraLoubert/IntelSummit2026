@@ -1,53 +1,28 @@
-javascript
-// Attendance counters
-let attendeeCount =
-  parseInt(localStorage.getItem("attendeeCount")) || 0;
+console.log("Script is running");
 
-let waterCount =
-  parseInt(localStorage.getItem("waterCount")) || 0;
-
-let zeroCount =
-  parseInt(localStorage.getItem("zeroCount")) || 0;
-
-let powerCount =
-  parseInt(localStorage.getItem("powerCount")) || 0;
-
-// Get page elements
 const form = document.getElementById("checkInForm");
 const greeting = document.getElementById("greeting");
+const attendeeCountDisplay = document.getElementById("attendeeCount");
+const waterCountDisplay = document.getElementById("waterCount");
+const zeroCountDisplay = document.getElementById("zeroCount");
+const powerCountDisplay = document.getElementById("powerCount");
+const progressBar = document.getElementById("progressBar");
 
-const attendeeCountDisplay =
-  document.getElementById("attendeeCount");
+let attendeeCount = parseInt(localStorage.getItem("attendeeCount"), 10) || 0;
+let waterCount = parseInt(localStorage.getItem("waterCount"), 10) || 0;
+let zeroCount = parseInt(localStorage.getItem("zeroCount"), 10) || 0;
+let powerCount = parseInt(localStorage.getItem("powerCount"), 10) || 0;
 
-const waterCountDisplay =
-  document.getElementById("waterCount");
-
-const zeroCountDisplay =
-  document.getElementById("zeroCount");
-
-const powerCountDisplay =
-  document.getElementById("powerCount");
-
-const progressBar =
-  document.getElementById("progressBar");
-
-// Update page when loaded
 updateDisplay();
 
-// Listen for form submission
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  const attendeeName =
-    document.getElementById("attendeeName").value;
+  const attendeeName = document.getElementById("attendeeName").value;
+  const team = document.getElementById("teamSelect").value;
 
-  const team =
-    document.getElementById("teamSelect").value;
-
-  // Increase total attendance
   attendeeCount++;
 
-  // Increase selected team count
   if (team === "water") {
     waterCount++;
   } else if (team === "zero") {
@@ -56,36 +31,18 @@ form.addEventListener("submit", function (event) {
     powerCount++;
   }
 
-  // Greeting message
   greeting.style.display = "block";
   greeting.classList.add("success-message");
+  greeting.textContent = `Welcome ${attendeeName}! You checked in with ${getTeamName(team)}.`;
 
-  greeting.textContent =
-    `Welcome ${attendeeName}! You checked in with ${
-      team === "water"
-        ? "Team Water Wise"
-        : team === "zero"
-        ? "Team Net Zero"
-        : "Team Renewables"
-    }.`;
-
-  // Save counts
   saveProgress();
-
-  // Update page
   updateDisplay();
-
-  // Add attendee to list
   addAttendee(attendeeName, team);
-
-  // Check celebration
   checkGoal();
 
-  // Clear form
   form.reset();
 });
 
-// Update all counters and progress bar
 function updateDisplay() {
   attendeeCountDisplay.textContent = attendeeCount;
   waterCountDisplay.textContent = waterCount;
@@ -96,30 +53,13 @@ function updateDisplay() {
   progressBar.style.width = `${progress}%`;
 }
 
-// Save counts to local storage
 function saveProgress() {
-  localStorage.setItem(
-    "attendeeCount",
-    attendeeCount
-  );
-
-  localStorage.setItem(
-    "waterCount",
-    waterCount
-  );
-
-  localStorage.setItem(
-    "zeroCount",
-    zeroCount
-  );
-
-  localStorage.setItem(
-    "powerCount",
-    powerCount
-  );
+  localStorage.setItem("attendeeCount", attendeeCount);
+  localStorage.setItem("waterCount", waterCount);
+  localStorage.setItem("zeroCount", zeroCount);
+  localStorage.setItem("powerCount", powerCount);
 }
 
-// Celebration feature
 function checkGoal() {
   if (attendeeCount >= 50) {
     let winningTeam = "Team Water Wise";
@@ -135,40 +75,30 @@ function checkGoal() {
       winningTeam = "Team Renewables";
     }
 
-    greeting.textContent =
-      `🎉 Attendance goal reached! ${winningTeam} has the highest turnout!`;
+    greeting.textContent = `Attendance goal reached! ${winningTeam} has the highest turnout!`;
   }
 }
 
-// Attendee list feature
 function addAttendee(name, team) {
-  const attendeeList =
-    document.getElementById("attendeeList");
+  const attendeeList = document.getElementById("attendeeList");
 
-  if (!attendeeList) return;
-
-  const listItem =
-    document.createElement("li");
-
-  let teamName = "";
-
-  if (team === "water") {
-    teamName = "Team Water Wise";
-  } else if (team === "zero") {
-    teamName = "Team Net Zero";
-  } else {
-    teamName = "Team Renewables";
+  if (!attendeeList) {
+    return;
   }
 
-  listItem.textContent =
-    `${name} - ${teamName}`;
-
+  const listItem = document.createElement("li");
+  listItem.textContent = `${name} - ${getTeamName(team)}`;
   attendeeList.appendChild(listItem);
 }
-```
-html
-<div class="attendee-list">
-  <h3>Attendee List</h3>
-  <ul id="attendeeList"></ul>
-</div>
-```
+
+function getTeamName(team) {
+  if (team === "water") {
+    return "Team Water Wise";
+  }
+
+  if (team === "zero") {
+    return "Team Net Zero";
+  }
+
+  return "Team Renewables";
+}
