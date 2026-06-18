@@ -381,5 +381,49 @@ select {
   .teams-grid {
     grid-template-columns: 1fr;
   }
+
+  /*celebration message styling*/
+  .celebration-message {
+  display: none;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ecfdf3;
+  border: 2px solid #22c55e;
+  border-radius: 12px;
+  color: #166534;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
 }
 
+.show-celebration {
+  display: block;
+}
+}
+
+/* Name List of Names on each team*/
+.attendee-list {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 2px solid #f1f5f9;
+  text-align: left;
+}
+
+.attendee-list h3 {
+  color: #64748b;
+  margin-bottom: 15px;
+}
+
+#attendeeList {
+  list-style: none;
+  padding: 0;
+}
+
+#attendeeList li {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 10px;
+  color: #475569;
+  font-size: 15px;
+}

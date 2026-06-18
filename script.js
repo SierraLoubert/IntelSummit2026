@@ -7,6 +7,7 @@ const waterCountDisplay = document.getElementById("waterCount");
 const zeroCountDisplay = document.getElementById("zeroCount");
 const powerCountDisplay = document.getElementById("powerCount");
 const progressBar = document.getElementById("progressBar");
+const celebrationMessage = document.getElementById("celebrationMessage");
 
 let attendeeCount = parseInt(localStorage.getItem("attendeeCount"), 10) || 0;
 let waterCount = parseInt(localStorage.getItem("waterCount"), 10) || 0;
@@ -74,6 +75,13 @@ function checkGoal() {
       highestCount = powerCount;
       winningTeam = "Team Renewables";
     }
+
+    celebrationMessage.classList.add(
+      "show-celebration"
+    );
+
+    celebrationMessage.textContent =
+      `🎉 Attendance Goal Reached! Congratulations ${winningTeam}! You had the highest turnout with ${highestCount} attendees.`;
 
     greeting.textContent = `Attendance goal reached! ${winningTeam} has the highest turnout!`;
   }
