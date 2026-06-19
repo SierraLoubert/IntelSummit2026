@@ -80,15 +80,17 @@ function checkGoal() {
       "show-celebration"
     );
 
-    celebrationMessage.textContent =
-      `🎉 Attendance Goal Reached! Congratulations ${winningTeam}! You had the highest turnout with ${highestCount} attendees.`;
+   celebrationMessage.innerHTML =
+  `🎉 Attendance Goal Reached! 
+  <span class="winning-team">${winningTeam}</span>
+  has the highest turnout!`;
 
     greeting.textContent = `Attendance goal reached! ${winningTeam} has the highest turnout!`;
   }
 }
 
 function addAttendee(name, team) {
-  const attendeeList = document.getElementById("attendeeList");
+  const attendeeList = document.getElementById(`${team}Attendees`);
 
   if (!attendeeList) {
     return;
@@ -97,6 +99,12 @@ function addAttendee(name, team) {
   const listItem = document.createElement("li");
   listItem.textContent = `${name} - ${getTeamName(team)}`;
   attendeeList.appendChild(listItem);
+
+  const attendeeDropdown = attendeeList.closest("details");
+
+  if (attendeeDropdown) {
+    attendeeDropdown.open = true;
+  }
 }
 
 function getTeamName(team) {

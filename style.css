@@ -331,6 +331,54 @@ select {
   gap: 5px;
 }
 
+.attendee-dropdown {
+  margin-top: 10px;
+  border-top: 1px solid rgba(71, 85, 105, 0.12);
+  padding-top: 10px;
+}
+
+.attendee-dropdown summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.attendee-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.attendee-dropdown summary::after {
+  content: "⌄";
+  font-size: 16px;
+  color: #0071c5;
+  margin-left: 10px;
+  transition: transform 0.2s ease;
+}
+
+.attendee-dropdown[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.team-attendee-list {
+  list-style: none;
+  padding: 10px 0 0;
+  margin: 0;
+}
+
+.team-attendee-list li {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  color: #475569;
+  font-size: 14px;
+}
+
 /* Team card colors */
 .team-card.water {
   background-color: #e8f7fc;
@@ -399,31 +447,17 @@ select {
 .show-celebration {
   display: block;
 }
-}
 
-/* Name List of Names on each team*/
-.attendee-list {
-  margin-top: 30px;
-  padding-top: 25px;
-  border-top: 2px solid #f1f5f9;
-  text-align: left;
+.winning-team {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0071c5;
+  margin: 10px 0;
+  text-transform: uppercase;
 }
-
-.attendee-list h3 {
-  color: #64748b;
-  margin-bottom: 15px;
-}
-
-#attendeeList {
-  list-style: none;
-  padding: 0;
-}
-
-#attendeeList li {
-  background-color: #f8fafc;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 10px;
-  color: #475569;
-  font-size: 15px;
+.winning-team-highlight {
+  color: #00a2ff;
+  font-size: 1.45em;
+  font-weight: 800;
 }
